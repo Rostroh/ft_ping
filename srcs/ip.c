@@ -12,7 +12,7 @@
 
 #include "ft_ping.h"
 
-int		get_idx_char(char *str, char c)
+static int		get_idx_char(char *str, char c)
 {
 	int		i;
 
@@ -31,7 +31,7 @@ int		get_idx_char(char *str, char c)
 	return (-1);
 }
 
-int		is_ipv4(char *addr, int count)
+static int		is_ipv4(char *addr, int count)
 {
 	int		i;
 	int		max;
@@ -56,7 +56,7 @@ int		is_ipv4(char *addr, int count)
 	return (is_ipv4(addr + i + 1, count));
 }
 
-struct sockaddr_in 	lookup_host(char *host, int *error)
+static struct sockaddr_in 	lookup_host(char *host, int *error)
 {
 	struct addrinfo		*res;
 	struct addrinfo		hints;
@@ -75,7 +75,7 @@ struct sockaddr_in 	lookup_host(char *host, int *error)
 	return (dst);
 }
 
-struct sockaddr_in	get_ip_addr(char *host, int *error)
+struct sockaddr_in		get_ip_addr(char *host, int *error)
 {
 	struct sockaddr_in	dst;
 	struct in_addr		addr;

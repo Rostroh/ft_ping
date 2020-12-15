@@ -12,7 +12,7 @@
 
 #include "ft_ping.h"
 
-int		get_micro(float delay, int unit)
+static int	get_micro(float delay, int unit)
 {
 	int	i;
 	int	res;
@@ -29,7 +29,7 @@ int		get_micro(float delay, int unit)
 	return (res);
 }
 
-int		diff(int micro, int *secs)
+static int	diff(int micro, int *secs)
 {
 	if (micro > 999999)
 	{

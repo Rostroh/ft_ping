@@ -80,6 +80,64 @@ typedef struct		s_info
 	char		*host;
 }			t_info;
 
+/*
+**	checksum.c
+*/
+unsigned short		cksum(unsigned short *addr, int len);
+
+/*
+**	comm.c
+*/
+int			read_msg(int sock, struct sockaddr_in *addr);
+
+/*
+**	ft_ping.c
+*/
+void			ft_ping(struct sockaddr_in dst, t_info data);
+
+/*
+**	ft_wait.c
+*/
+void			ft_wait(float delay);
+
+/*
+**	ip.c
+*/
+struct sockaddr_in	get_ip_addr(char *host, int *error);
+
+/*
+**	math.c
+*/
+int			standart_div(void);
+
+/*
+**	parser.c
+*/
 t_info			parser(int ac, char **argv);
+
+/*
+**	payload.c
+*/
+char			*creat_payload(struct sockaddr_in dst, t_info data);
+
+/*
+**	socket.c
+*/
+int			creat_socket(void);
+
+/*
+**	stat.c
+*/
+void			print_stat(void);
+
+/*
+**	time.c
+*/
+float			time_passed(struct timeval t1, struct timeval t2);
+
+/*
+**	tools.c
+*/
 void			usage(char *name);
+void			sig_int(int code);
 #endif

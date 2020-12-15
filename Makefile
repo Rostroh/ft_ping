@@ -1,8 +1,19 @@
 NAME = ft_ping
 
 INC = ft_ping.h
-SRC = main.c \
-      parser.c
+SRC = checksum.c \
+	comm.c \
+	ft_ping.c \
+	ft_wait.c \
+	ip.c \
+	main.c \
+	math.c \
+      	parser.c \
+	payload.c \
+	socket.c \
+	stat.c \
+	time.c \
+	tools.c
 
 INC_DIR = ./include
 SRC_DIR = ./srcs

@@ -53,7 +53,9 @@ void		ft_ping(struct sockaddr_in dst, t_info data)
 	while (stat.nb_sent < data.count)
 	{
 		stat.nb_sent++;
+		printf("AVANT\n");
 		buffer = creat_payload(dst, data);
+		printf("APRES\n");
 		ip = (struct ip *)buffer;
 		icmp = (struct icmp *)(ip + 1);
 		icmp->icmp_cksum = 0;

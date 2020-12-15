@@ -12,7 +12,7 @@
 
 #include "ft_ping.h"
 
-int		ft_sqrt(double val)
+static int	ft_sqrt(double val)
 {
 	double A, B, M, XN;
 
