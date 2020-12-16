@@ -21,13 +21,7 @@ int		read_msg(int sock, struct sockaddr_in *addr)
 	struct iovec	iov[1];
 	ssize_t		n;
 	struct cmgshdr	*cmptr;
-	union {
-		struct cmsghdr	cm;
-		char		control[CMSG_SPACE(sizeof(struct in_addr))];
-	} control_un;
 
-	msg.msg_control = control_un.control;
-	msg.msg_controllen = sizeof(control_un.control);
 	msg.msg_flags = 0;
 	msg.msg_name = addr;
 	msg.msg_namelen = sizeof(addr);
