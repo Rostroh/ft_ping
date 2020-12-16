@@ -2,8 +2,8 @@
 
 int		creat_socket(void)
 {
-	int		val;
-	int		sock;
+	int				val;
+	int				sock;
 	struct timeval	timeout;
 
 	val = 1;
@@ -19,7 +19,8 @@ int		creat_socket(void)
 		printf("setsockopt error\n");
 		return (-1);
 	}
-	if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval)) < 0)
+	if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, \
+				sizeof(struct timeval)) < 0)
 	{
 		printf("setsockopt timeout error\n");
 		return (-1);

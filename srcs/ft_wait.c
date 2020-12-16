@@ -6,7 +6,7 @@
 /*   By: rostroh </var/mail/rostroh>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 18:48:06 by rostroh           #+#    #+#             */
-/*   Updated: 2020/12/15 18:54:10 by rostroh          ###   ########.fr       */
+/*   Updated: 2020/12/16 21:11:16 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	diff(int micro, int *secs)
 {
 	if (micro > 999999)
 	{
-	 	*secs++;
+		*secs++;
 		return (micro - 999999);
 	}
 	return (micro);
@@ -41,11 +41,11 @@ static int	diff(int micro, int *secs)
 
 void		ft_wait(float delay)
 {
-	int			sec;
-	int			usec;
+	int					sec;
+	int					usec;
 	struct timeval		tv;
 	struct timeval		tv2;
-	
+
 	if (delay == 0)
 		return ;
 	gettimeofday(&tv, NULL);

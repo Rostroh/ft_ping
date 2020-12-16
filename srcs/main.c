@@ -14,9 +14,9 @@ static void		init(void)
 	stat.lst = NULL;
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
-	t_info			data;
+	t_info				data;
 	struct sockaddr_in	dst;
 
 	signal(SIGINT, &sig_int);

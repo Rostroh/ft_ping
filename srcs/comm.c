@@ -6,7 +6,7 @@
 /*   By: rostroh </var/mail/rostroh>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 19:58:02 by rostroh           #+#    #+#             */
-/*   Updated: 2020/12/15 19:58:13 by rostroh          ###   ########.fr       */
+/*   Updated: 2020/12/16 21:04:20 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int		read_msg(int sock, struct sockaddr_in *addr)
 {
-	char		buf[BUF_SIZE];
+	char			buf[BUF_SIZE];
 	struct msghdr	msg;
 	struct iovec	iov[1];
-	ssize_t		n;
+	ssize_t			n;
 	struct cmgshdr	*cmptr;
 
 	msg.msg_flags = 0;

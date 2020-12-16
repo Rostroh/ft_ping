@@ -2,7 +2,8 @@
 
 void		usage(char *name)
 {
-		printf("Usage: %s [-vhD] [-c count] [-i interval]\n\t\t [-s packetsize] destination.\nUsage: ./ft_ping -6 [-vhD] [-c count] [-i interval]\n\t\t    [-s packetsize] destination\n", name);
+	printf("Usage: %s [-vhD] [-c count] [-i interval]\n", name);
+	printf("\t\t [-s packetsize] destination.\n");
 }
 
 void		sig_int(int code)

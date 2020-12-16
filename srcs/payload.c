@@ -2,7 +2,7 @@
 
 static struct ip	set_ip(struct sockaddr_in dst, int size)
 {
-	struct ip 	ip_hdr;
+	struct ip		ip_hdr;
 
 	inet_pton(AF_INET, "10.0.2.15", &ip_hdr.ip_src);
 	memcpy(&ip_hdr.ip_dst, &dst.sin_addr, sizeof(struct in_addr));
@@ -18,11 +18,11 @@ static struct ip	set_ip(struct sockaddr_in dst, int size)
 	return (ip_hdr);
 }
 
-char			*creat_payload(struct sockaddr_in dst, t_info data)
+char				*creat_payload(struct sockaddr_in dst, t_info data)
 {
-	char		*buffer;
-	struct ip	ip;
-	struct icmp	*icmp;
+	char			*buffer;
+	struct ip		ip;
+	struct icmp		*icmp;
 
 	buffer = (char *)malloc(sizeof(char) * data.size);
 	memset(buffer, 0, data.size);
