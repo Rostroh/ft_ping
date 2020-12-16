@@ -48,7 +48,9 @@ typedef struct 			s_stats
 	int			nb_sent;
 	int			nb_rec;
 	struct timeval		init;
-	struct timeval		end;	
+	struct timeval		end;
+	struct timeval		tv1;
+	struct timeval		tv2;
 	t_timeinfo		time;
 	t_time_list		*lst;
 }				t_stats;
@@ -68,12 +70,12 @@ t_stats stat;
 */
 typedef struct		s_info
 {
-	int		format;
 	int		h;
 	int		v;
 	int		d;
 	int		count;
 	int		size;
+	int		ttl;
 	float		interval;
 	int		idx;
 	int		pars_idx;

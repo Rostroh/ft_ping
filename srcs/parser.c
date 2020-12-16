@@ -3,7 +3,7 @@
 int		check_option(char c)
 {
 	int		i;
-	static char	opt[NB_OPT] = {'6', 'v', 'h', 'D', 'c', 's', 'i'};
+	static char	opt[NB_OPT] = {'v', 'h', 'D', 'c', 's', 't', 'i'};
 
 	i = 0;
 	while (i < NB_OPT)
@@ -36,7 +36,6 @@ int		get_value(char *str, void *dst)
 	i = 0;
 	value = dst;
 	*value = 0;
-	printf("Hello dec\n");
 	while (*str != '\0')
 	{
 		if (*str < '0' || *str > '9')
@@ -137,7 +136,7 @@ t_info		fill_struct(t_info arg, char *option, char *next)
 	int		i;
 	int		*arg_addr;
 	static int	size[NB_OPT] = {0, 1, 2, 3, 4, 5, 6};
-	static int	has_value[NB_OPT] = {0, 0, 0, 0, 1, 1, 2};
+	static int	has_value[NB_OPT] = {0, 0, 0, 1, 1, 1, 2};
 	static int	(*find_val[2])(char *value, void *dst) = {&get_value, &get_float};
 
 	arg_addr = (int *)&arg;
@@ -182,9 +181,10 @@ t_info		parser(int ac, char **av)
 	bzero(&arg, sizeof(t_info));
 	arg.interval = 1;
 	arg.size = 56;
-	arg.count = 5;
+	arg.count = 0;
+	arg.ttl = 127;
 	arg.pars_idx = 1;
-	printf("6: %d\nh: %d\nv: %d\nD: %d\nc: %d\ni: %f\ns: %d\n", arg.format, arg.h, arg.v, arg.d, arg.count, arg.interval, arg.size);
+//	printf("h: %d\nv: %d\nD: %d\nc: %d\ni: %f\ns: %d\n", arg.format, arg.h, arg.v, arg.d, arg.count, arg.interval, arg.size);
 	while (arg.pars_idx < ac - 1)
 	{
 		printf("%d %d\n", arg.pars_idx, ac);
@@ -199,7 +199,7 @@ t_info		parser(int ac, char **av)
 		arg.idx = -1;
 		return (arg);
 	}
-	printf("6: %d\nh: %d\nv: %d\nD: %d\nc: %d\ni: %f\ns: %d\n", arg.format, arg.h, arg.v, arg.d, arg.count, arg.interval, arg.size);
+//	printf("6: %d\nh: %d\nv: %d\nD: %d\nc: %d\ni: %f\ns: %d\n", arg.format, arg.h, arg.v, arg.d, arg.count, arg.interval, arg.size);
 	printf("Host = %s\n", av[arg.pars_idx]);
 	arg.host = av[arg.pars_idx];
 	return (arg);
