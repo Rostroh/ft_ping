@@ -2,11 +2,13 @@
 
 unsigned short	cksum(unsigned short *addr, int len)
 {
-	int		nleft = len;
+	int		nleft;
 	int		sum;
-	unsigned short 	*w = addr;
+	unsigned short 	*w;
 	unsigned short	ans;
 
+	nleft = len;
+	w = addr;
 	sum = 0;
 	ans = 0;
 	while (nleft > 1)
