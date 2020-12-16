@@ -6,7 +6,7 @@
 /*   By: rostroh </var/mail/rostroh>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 19:46:05 by rostroh           #+#    #+#             */
-/*   Updated: 2020/12/15 19:52:48 by rostroh          ###   ########.fr       */
+/*   Updated: 2020/12/16 20:49:00 by rostroh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #define SIZE 84
 
-int		send_msg(int sock, struct sockaddr_in dst, t_info data, int *seq)
+static int		send_msg(int sock, struct sockaddr_in dst, \
+		t_info data, int *seq)
 {
 	char			*buffer;
 	struct ip		*ip;
@@ -36,20 +37,20 @@ int		send_msg(int sock, struct sockaddr_in dst, t_info data, int *seq)
 	return (data.size + sizeof(struct icmp));
 }
 
-static void	print_info(t_info data)
+static void		print_info(t_info data)
 {
-	char			name[SIZE_IP4 + 1];
+	char		name[SIZE_IP4 + 1];
 
 	printf("PING %s (%s) %d(%d) bytes of data\n", data.host, \
 			inet_ntop(AF_INET, &stat.addr, name, SIZE_IP4 + 1), \
 			data.size, data.size + sizeof(struct icmp));
 }
 
-void		ft_ping(struct sockaddr_in dst, t_info data)
+void			ft_ping(struct sockaddr_in dst, t_info data)
 {
 	int			seq;
 	int			sock;
-	char			name[SIZE_IP4 + 1];
+	char		name[SIZE_IP4 + 1];
 
 	if ((sock = creat_socket()) < 0)
 		return ;
