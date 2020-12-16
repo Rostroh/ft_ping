@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checksum.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rostroh </var/mail/rostroh>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/16 20:40:09 by rostroh           #+#    #+#             */
+/*   Updated: 2020/12/16 20:40:13 by rostroh          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ping.h"
 
 unsigned short	cksum(unsigned short *addr, int len)
 {
-	int		nleft;
-	int		sum;
-	unsigned short 	*w;
+	int				nleft;
+	int				sum;
+	unsigned short	*w;
 	unsigned short	ans;
 
 	nleft = len;
