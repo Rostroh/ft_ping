@@ -58,20 +58,29 @@ static int					is_ipv4(char *addr, int count)
 
 static struct sockaddr_in	lookup_host(char *host, int *error)
 {
+	char			name[255];
 	struct addrinfo		*res;
 	struct addrinfo		hints;
 	struct sockaddr_in	dst;
 
+	printf("dans lookup, host = %s\n", host);
 	memset(&dst, sizeof(struct sockaddr_in), 0);
-	hints.ai_family = PF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_RAW;
 	hints.ai_flags |= AI_CANONNAME;
 	if (getaddrinfo(host, NULL, &hints, &res) != 0)
 	{
+		printf("CA CASSE\n");
 		*error = 1;
 		return (dst);
 	}
+	printf("CA PASSE\n");
 	dst = (*(struct sockaddr_in *)res->ai_addr);
+	while (res != NULL)
+	{
+		printf("name = %s et addr = %s\n", res->ai_canonname, inet_ntop(AF_INET, &dst, name, 255));
+		res = res->ai_next;
+	}
 	return (dst);
 }
 
@@ -81,12 +90,17 @@ struct sockaddr_in			get_ip_addr(char *host, int *error)
 	struct in_addr		addr;
 
 	dst.sin_family = AF_INET;
-	if (is_ipv4(host, 0) == 1)
+//	if (is_ipv4(host, 0) == 1)
+//	{
+	if (inet_pton(AF_INET, host, &addr) == 1)
 	{
-		if (inet_pton(AF_INET, host, &addr) == 1)
-			dst.sin_addr = addr;
+		printf("C'est une ip4\n");
+		dst.sin_addr = addr;
 	}
 	else
+	{
+		printf("c'est non %s\n", host);
 		return (lookup_host(host, error));
+	}
 	return (dst);
 }

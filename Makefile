@@ -39,14 +39,14 @@ all:
 
 $(NAME): $(OBJS)
 	echo "ICI ?"
-	$(CC) $(FLGS) $^ -o $@
+	$(CC) $(FLGS) $^ -o $@ -lm
 
 $(OBJS): $(INCS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
 	echo "MDR\n"
-	$(CC) $(FLGS) -o $@ -c -fPIC $<
+	$(CC) $(FLGS) -o $@ -lm -c -fPIC $<
 
 clean:
 	rm -rf $(OBJ_DIR)

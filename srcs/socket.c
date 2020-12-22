@@ -7,8 +7,8 @@ int		creat_socket(void)
 	struct timeval	timeout;
 
 	val = 1;
-	timeout.tv_sec = 0;
-	timeout.tv_usec = 10;
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 30000;
 	if ((sock = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP)) < 0)
 	{
 		printf("Socket error\n");

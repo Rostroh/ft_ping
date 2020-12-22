@@ -24,8 +24,8 @@ char				*creat_payload(struct sockaddr_in dst, t_info data)
 	struct ip		ip;
 	struct icmp		*icmp;
 
-	buffer = (char *)malloc(sizeof(char) * data.size);
-	memset(buffer, 0, data.size);
+	buffer = (char *)malloc(sizeof(char) * data.size + sizeof(struct icmp));
+	memset(buffer, 0, data.size + sizeof(struct icmp));
 	memset(&ip, 0, sizeof(struct ip));
 	memset(&icmp, 0, sizeof(struct icmp));
 	ip = set_ip(dst, data.size);
@@ -35,5 +35,7 @@ char				*creat_payload(struct sockaddr_in dst, t_info data)
 	icmp->icmp_code = 0;
 	icmp->icmp_id = 123;
 	icmp->icmp_seq = 0;
+	for (int i = sizeof(struct ip) + sizeof(struct icmp); i < data.size; i++)
+		buffer[i] = 0;
 	return (buffer);
 }
