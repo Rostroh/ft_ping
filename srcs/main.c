@@ -2,6 +2,8 @@
 
 static void		init(void)
 {
+	stat.dns = 0;
+	stat.is_host = 0;
 	stat.nb_sent = 0;
 	stat.nb_rec = 0;
 	stat.init.tv_sec = 0;

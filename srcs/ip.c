@@ -76,9 +76,14 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	}
 	printf("CA PASSE\n");
 	dst = (*(struct sockaddr_in *)res->ai_addr);
+	stat.is_host = 1;
+	stat.dns = 1;
+	stat.dns_name = res->ai_canonname;
 	while (res != NULL)
 	{
-		printf("name = %s et addr = %s\n", res->ai_canonname, inet_ntop(AF_INET, &dst, name, 255));
+		printf("name = %s et addr = %s\n", res->ai_canonname, inet_ntop(AF_INET, &dst.sin_addr, name, 255));
+		getnameinfo((struct sockaddr *)&dst, sizeof(struct sockaddr), name, 255, NULL, 0, NI_NUMERICSERV);
+		printf("Petit poisson = %s\n", name);
 		res = res->ai_next;
 	}
 	return (dst);

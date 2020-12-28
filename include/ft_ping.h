@@ -44,6 +44,9 @@ typedef struct			s_timeinfo
 
 typedef struct 			s_stats
 {
+	int			dns;
+	char			*dns_name;
+	int			is_host;
 	struct in_addr		addr;
 	int			nb_sent;
 	int			nb_rec;

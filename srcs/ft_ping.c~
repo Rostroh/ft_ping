@@ -45,31 +45,10 @@ static void		print_info(t_info data)
 
 	if (strcmp(data.host, "localhost") == 0)
 		printf("PING localhost(localhost(::1) %d data bytes\n", data.size);
-	else if (stat.dns == 1)	
-		printf("PING %s (%s) %d(%d) bytes of data\n", stat.dns_name, \
-			inet_ntop(AF_INET, &stat.addr, name, 255), \
-			data.size, data.size + sizeof(struct icmp));
 	else
 		printf("PING %s (%s) %d(%d) bytes of data\n", data.host, \
 			inet_ntop(AF_INET, &stat.addr, name, 255), \
 			data.size, data.size + sizeof(struct icmp));
-}
-
-static void		print_comm(struct sockaddr_in dst, t_info data, int seq)
-{
-	char		name[255];
-
-	printf("%d bytes from ", data.size + sizeof(struct icmp) - sizeof(struct ip));
-	if (strcmp(data.host, "localhost") == 0)
-		printf("localhost (::1)");
-	else if (stat.dns == 1)
-	{
-		getnameinfo((struct sockaddr *)&dst, sizeof(struct sockaddr), name, 255, NULL, 0, NI_NUMERICSERV);
-		printf("%s", name);
-	}
-	else
-		printf("%s", inet_ntop(AF_INET, &stat.addr, name, 255));
-	printf(": icmp_seq=%d ttl = %d time=", seq, data.ttl);
 }
 
 void			ft_ping(struct sockaddr_in dst, t_info data)
@@ -88,7 +67,9 @@ void			ft_ping(struct sockaddr_in dst, t_info data)
 		if (read_msg(sock, &dst) > 0)
 		{
 			gettimeofday(&stat.tv2, NULL);
-			print_comm(dst, data, seq);
+			printf("%d bytes from %s: icmp_seq=%d ttl=%d time=", \
+	data.size + sizeof(struct icmp) - sizeof(struct ip), \
+	inet_ntop(AF_INET, &stat.addr, name, 255), seq, data.ttl);
 			time_passed(stat.tv1, stat.tv2);
 			stat.nb_rec++;
 		}
