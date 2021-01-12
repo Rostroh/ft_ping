@@ -9,9 +9,9 @@ static struct ip	set_ip(struct sockaddr_in dst, int size)
 	ip_hdr.ip_v = 4;
 	ip_hdr.ip_hl = 5;
 	ip_hdr.ip_tos = 0;
-	ip_hdr.ip_len = htons(size);
-	ip_hdr.ip_id = htons(321);
-	ip_hdr.ip_off = htons(0);
+	ip_hdr.ip_len = size;
+	ip_hdr.ip_id = 321;
+	ip_hdr.ip_off = 0;
 	ip_hdr.ip_ttl = 255;
 	ip_hdr.ip_p = IPPROTO_ICMP;
 	ip_hdr.ip_sum = 0;

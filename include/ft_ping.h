@@ -18,7 +18,7 @@
 # include <netinet/ip_icmp.h>
 # include <netinet/in_systm.h>
 
-#define NB_OPT 7
+#define NB_OPT 6
 #define SIZE_IP4 12
 #define SIZE_HDR 28
 /*
@@ -44,6 +44,7 @@ typedef struct			s_timeinfo
 
 typedef struct 			s_stats
 {
+	int			arg_idx;
 	int			dns;
 	char			*dns_name;
 	int			is_host;
@@ -76,13 +77,13 @@ typedef struct		s_info
 	int		h;
 	int		v;
 	int		d;
-	int		count;
-	int		size;
-	int		ttl;
+	float		count;
+	float		ttl;
 	float		interval;
 	int		idx;
 	int		pars_idx;
 	char		*host;
+	float		size;
 }			t_info;
 
 /*
@@ -145,4 +146,11 @@ float			time_passed(struct timeval t1, struct timeval t2);
 */
 void			usage(char *name);
 void			sig_int(int code);
+
+/*
+**	ft_func.c
+*/
+int			ft_strlen(char *s);
+void			*ft_memset(void *s, int c, size_t n);
+int			ft_strcmp(char *s1, char *s2);
 #endif

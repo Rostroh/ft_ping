@@ -24,24 +24,10 @@ struct sockaddr_in	*is_host(struct sockaddr_in *addr)
 	inet_ntop(AF_INET, &addr->sin_addr, name, 255);
 	if (strcmp(name, "127.0.0.1") == 0)
 	{
-		printf("MDR\n");
 		inet_pton(AF_INET, "10.0.2.15", &res->sin_addr);
 		return (res);
 	}
 	return (addr);
-}
-
-void		test(char *buffer)
-{
-	struct ip	*ip;
-	struct icmp 	*icmp;
-
-	ip = (struct ip *)buffer;
-	icmp = (struct icmp *)(ip + 1);
-	if (icmp->icmp_type == ICMP_ECHOREPLY)
-		printf("FACILE\n");
-	else
-		printf("COMPLIQUE %d\n", icmp->icmp_type);
 }
 
 int		src_is_host(char *buf)
@@ -73,18 +59,11 @@ int		read_msg(int sock, struct sockaddr_in *addr)
 	msg.msg_iov = iov;
 	msg.msg_iovlen = 1;
 	if (((n = recvmsg(sock, &msg, 0))) < 0)
-	{
-		strerror(errno);
-		printf("PLOP %d\n", errno);
 		return (n);
-	}
 	if (*(buf + sizeof(struct ip)) == ICMP_ECHO && src_is_host(buf) == 1)
 	{
 		if (((n = recvmsg(sock, &msg, 0))) >= 0)
-		{
-			test(buf);
 			return (n);
-		}
 	}
 	if (*(buf + sizeof(struct ip)) == ICMP_ECHOREPLY)
 		return (n);

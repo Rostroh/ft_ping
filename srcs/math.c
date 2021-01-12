@@ -23,7 +23,6 @@ int		standart_div(void)
 	while (tmp != NULL)
 	{
 		div = tmp->val - stat.time.ave / stat.nb_sent;
-		//printf("val = %d div = %d\n", tmp->val, div);
 		div *= div;
 		sum += div;
 		tmp = tmp->next;

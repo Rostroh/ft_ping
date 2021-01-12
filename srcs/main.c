@@ -41,10 +41,10 @@ int				main(int argc, char **argv)
 	else
 	{
 		data = parser(argc, argv);
-		if (data.idx == -1)
+		if (data.idx < 0)
 			return (0);
 		dst = get_ip_addr(argv[data.pars_idx], &err);
-		if (err == 1)
+		if (err == -2)
 			return (bad_host(argv[0], argv[data.pars_idx]));
 		stat.addr = dst.sin_addr;
 		ft_ping(dst, data);
