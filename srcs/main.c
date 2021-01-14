@@ -41,13 +41,19 @@ int				main(int argc, char **argv)
 	else
 	{
 		data = parser(argc, argv);
+		printf("Ola\n");
 		if (data.idx < 0)
 			return (0);
-		dst = get_ip_addr(argv[data.pars_idx], &err);
+		dst = get_ip_addr(data.host, &err);
+		if (err == -1)
+			return (0);
 		if (err == -2)
-			return (bad_host(argv[0], argv[data.pars_idx]));
+			return (bad_host(argv[0], data.host));
 		stat.addr = dst.sin_addr;
-		ft_ping(dst, data);
+		if (data.h == 1)
+			usage(argv[0]);
+		else
+			ft_ping(dst, data);
 	}
 	return (0);
 }

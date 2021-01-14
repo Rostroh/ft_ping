@@ -22,7 +22,7 @@ void			print_stat(void)
 	char		name[SIZE_IP4 + 1];
 
 	gettimeofday(&stat.end, NULL);
-		printf("\n--- %s ping statistics ---\n", stat.dns_name);
+	printf("\n--- %s ping statistics ---\n", stat.dns_name);
 	printf("%d packets transmitted, %d received, %d%% packet loss, time ",\
 			stat.nb_sent, stat.nb_rec, percent(stat.nb_sent, stat.nb_rec));
 	sec = stat.end.tv_sec - stat.init.tv_sec;

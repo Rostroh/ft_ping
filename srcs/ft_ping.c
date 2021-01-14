@@ -67,11 +67,21 @@ static void		print_comm(struct sockaddr_in dst, t_info data, int seq)
 	else if (stat.dns == 1)
 	{
 		getnameinfo((struct sockaddr *)&dst, sizeof(struct sockaddr), name, 255, NULL, 0, NI_NUMERICSERV);
-		printf("%s", name);
+		printf("%s (%s)", name, inet_ntop(AF_INET, &stat.addr, name, 255));
 	}
 	else
 		printf("%s", inet_ntop(AF_INET, &stat.addr, name, 255));
-	printf(": icmp_seq=%d ttl=%d time=", seq, (int)data.ttl);
+	printf(": icmp_seq=%d ttl=%d time=", seq + 1, (int)data.ttl);
+}
+
+static float		conv_float(float val)
+{
+	int		tmp;
+
+	tmp = (int)val;
+	if (val == INFINITY)
+		return (val);
+	return ((float)tmp);
 }
 
 void			ft_ping(struct sockaddr_in dst, t_info data)
@@ -84,7 +94,7 @@ void			ft_ping(struct sockaddr_in dst, t_info data)
 		return ;
 	print_info(data);
 	gettimeofday(&stat.init, NULL);
-	while (stat.nb_sent < (int)data.count || data.count == 0)
+	while (conv_float(stat.nb_sent) < data.count)
 	{
 		send_msg(sock, dst, data, &seq);
 		if (read_msg(sock, &dst) > 0)

@@ -13,11 +13,13 @@ int		ft_strlen(char *str)
 void		*ft_memset(void *s, int c, size_t n)
 {
 	int		i;
+	unsigned char	*ptr;
 
 	i = 0;
+	ptr = s;
 	while (i < n)
 	{
-		(unsigned char *)s[i] = c;
+		ptr[i] = c;
 		i++;
 	}
 	return (s);
@@ -28,9 +30,9 @@ int		ft_strcmp(char *s1, char *s2)
 	while (*s1 != 0 && *s2 != 0)
 	{
 		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
+			return ((unsigned char)(*s1) - (unsigned char)(*s2));
 		s1++;
 		s2++;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	return ((unsigned char)(*s1) - (unsigned char)(*s2));
 }

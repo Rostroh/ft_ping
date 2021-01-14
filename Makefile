@@ -2,6 +2,7 @@ NAME = ft_ping
 
 INC = ft_ping.h
 SRC = checksum.c \
+	tools.c \
 	comm.c \
 	ft_ping.c \
 	ft_wait.c \
@@ -13,7 +14,7 @@ SRC = checksum.c \
 	socket.c \
 	stat.c \
 	time.c \
-	tools.c
+	ft_func.c  
 
 INC_DIR = ./include
 SRC_DIR = ./srcs

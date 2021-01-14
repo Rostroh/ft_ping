@@ -42,6 +42,17 @@ int		src_is_host(char *buf)
 	return (0);
 }
 
+int		check_src(char *buf)
+{
+	char		name[255];
+	struct ip	*ip_hdr;
+
+	ip_hdr = (struct ip *)buf;
+	if (ip_hdr->ip_src.s_addr == stat.addr.s_addr)
+		return (0);
+	return (-1);
+}
+
 int		read_msg(int sock, struct sockaddr_in *addr)
 {
 	char			buf[BUF_SIZE];
@@ -60,6 +71,8 @@ int		read_msg(int sock, struct sockaddr_in *addr)
 	msg.msg_iovlen = 1;
 	if (((n = recvmsg(sock, &msg, 0))) < 0)
 		return (n);
+	if (src_is_host(buf) != 1 && check_src(buf) == -1)
+		return (-1);
 	if (*(buf + sizeof(struct ip)) == ICMP_ECHO && src_is_host(buf) == 1)
 	{
 		if (((n = recvmsg(sock, &msg, 0))) >= 0)

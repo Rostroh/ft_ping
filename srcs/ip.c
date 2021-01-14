@@ -41,7 +41,8 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	hints.ai_flags |= AI_CANONNAME;
 	if (getaddrinfo(host, NULL, &hints, &res) != 0)
 	{
-		*error = 1;
+		printf("./ft_ping: %s: No address associated with hostname\n", host);
+		*error = -1;
 		return (dst);
 	}
 	dst = (*(struct sockaddr_in *)res->ai_addr);
@@ -56,19 +57,45 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	return (dst);
 }
 
+char					*check_digit(char *host)
+{
+	int			i;
+
+	i = 0;
+	while (host[i])
+	{
+		if (host[i] == '0')
+			i++;
+		else if (host[i] >= '1' && host[i] <= '9')
+			return (NULL);
+		else
+			return (host);
+	}
+	return ("127.0.0.1");
+}
+
 struct sockaddr_in			get_ip_addr(char *host, int *error)
 {
+	char			*hostname;
 	struct sockaddr_in	dst;
 	struct in_addr		addr;
 
 	dst.sin_family = AF_INET;
+	printf("%s\n", host);
 	if (inet_pton(AF_INET, host, &addr) == 1)
 	{
 		stat.dns = 0;
 		stat.dns_name = host;
 		dst.sin_addr = addr;
+		return (dst);
+	}
+	hostname = (char *)malloc(sizeof(char) * (ft_strlen(host) < 10 ? ft_strlen(host) : 10));
+	if ((hostname = check_digit(host)) == NULL)
+	{
+		printf("connect: invalid argument\n");
+		exit(0);
 	}
 	else
-		return (lookup_host(host, error));
+		return (lookup_host(hostname, error));
 	return (dst);
 }
