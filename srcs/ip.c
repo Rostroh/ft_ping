@@ -35,7 +35,7 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	struct addrinfo		hints;
 	struct sockaddr_in	dst;
 
-	memset(&dst, sizeof(struct sockaddr_in), 0);
+	ft_memset(&dst, sizeof(struct sockaddr_in), 0);
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_RAW;
 	hints.ai_flags |= AI_CANONNAME;
@@ -52,6 +52,7 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	while (res != NULL)
 	{
 		getnameinfo((struct sockaddr *)&dst, sizeof(struct sockaddr), name, 255, NULL, 0, NI_NUMERICSERV);
+		stat.cname = ft_strdup(name);
 		res = res->ai_next;
 	}
 	return (dst);
@@ -60,8 +61,11 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 char					*check_digit(char *host)
 {
 	int			i;
+	struct in_addr		addr;
 
 	i = 0;
+	if (inet_pton(AF_INET, host, &addr) == 1)
+		return (host);
 	while (host[i])
 	{
 		if (host[i] == '0')
@@ -81,19 +85,18 @@ struct sockaddr_in			get_ip_addr(char *host, int *error)
 	struct in_addr		addr;
 
 	dst.sin_family = AF_INET;
-	printf("%s\n", host);
-	if (inet_pton(AF_INET, host, &addr) == 1)
-	{
-		stat.dns = 0;
-		stat.dns_name = host;
-		dst.sin_addr = addr;
-		return (dst);
-	}
 	hostname = (char *)malloc(sizeof(char) * (ft_strlen(host) < 10 ? ft_strlen(host) : 10));
 	if ((hostname = check_digit(host)) == NULL)
 	{
 		printf("connect: invalid argument\n");
 		exit(0);
+	}
+	else if (inet_pton(AF_INET, hostname, &addr) == 1)
+	{
+		stat.dns = 0;
+		stat.dns_name = host;
+		dst.sin_addr = addr;
+		return (dst);
 	}
 	else
 		return (lookup_host(hostname, error));

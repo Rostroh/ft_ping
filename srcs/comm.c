@@ -22,7 +22,7 @@ struct sockaddr_in	*is_host(struct sockaddr_in *addr)
 
 	res = (struct sockaddr_in *)malloc(sizeof(struct sockaddr_in));
 	inet_ntop(AF_INET, &addr->sin_addr, name, 255);
-	if (strcmp(name, "127.0.0.1") == 0)
+	if (ft_strcmp(name, "127.0.0.1") == 0)
 	{
 		inet_pton(AF_INET, "10.0.2.15", &res->sin_addr);
 		return (res);
@@ -37,7 +37,7 @@ int		src_is_host(char *buf)
 
 	ip_hdr = (struct ip *)buf;
 	inet_ntop(AF_INET, &ip_hdr->ip_src, name, 255);
-	if (strcmp(name, "10.0.2.15") == 0)
+	if (ft_strcmp(name, "10.0.2.15") == 0)
 		return (1);
 	return (0);
 }
@@ -46,10 +46,18 @@ int		check_src(char *buf)
 {
 	char		name[255];
 	struct ip	*ip_hdr;
+	struct icmp	*icmp_hdr;
 
 	ip_hdr = (struct ip *)buf;
+	icmp_hdr = (struct icmp *)(buf + sizeof(struct ip));
+	inet_ntop(AF_INET, &ip_hdr->ip_src.s_addr, name, 255);
 	if (ip_hdr->ip_src.s_addr == stat.addr.s_addr)
 		return (0);
+	if (icmp_hdr->icmp_type == ICMP_TIME_EXCEEDED)
+	{
+		printf("From %s icmp_seq=%d Time to live exceeded\n", name, stat.nb_sent);
+		return (1);
+	}
 	return (-1);
 }
 
@@ -62,6 +70,7 @@ int		read_msg(int sock, struct sockaddr_in *addr)
 	struct cmgshdr	*cmptr;
 
 	errno = 0;
+	ft_memset(&buf, 0, BUF_SIZE);
 	msg.msg_flags = 0;
 	msg.msg_name = addr;
 	msg.msg_namelen = sizeof(addr);

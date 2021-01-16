@@ -18,9 +18,10 @@ int		check_option(char c)
 
 t_info		bad_value(int idx, t_info arg)
 {
-	static char	*err_msg[2] = {"number of packet to transmit.", "timing interval"};
+	static char	*err_msg[3] = {"bad number of packet to transmit.", "ttl out of range", "bad timing interval"};
 
-	printf("ft_ping: bad %s\n", err_msg[idx]);
+	printf("idx = %d\n", idx);
+	printf("ft_ping: %s\n", err_msg[idx]);
 	arg.idx = -1;
 	return (arg);
 }
@@ -110,10 +111,15 @@ t_info		fill_struct(t_info arg, char *option, char *next)
 
 void		check_opt(t_info *arg)
 {
+       	if ((int)arg->ttl == 0)
+	{
+		arg->idx = -1;
+		printf("./ft_ping: can't set unicast time-to-live: Invalid argument\n");
+	}
 	if ((int)arg->ttl > 255)
 	{
 		arg->idx = -1;
-		printf("./ft_ping: bad Time to live\n");
+		printf("./ft_ping: ttl %d out of range\n", (short)arg->ttl);
 	}
 	if ((int)arg->count == 0)
 		*arg = bad_value(0, *arg);
@@ -124,6 +130,7 @@ t_info		parser(int ac, char **av)
 	t_info		arg;
 
 	bzero(&arg, sizeof(t_info));
+	arg.host = NULL;
 	arg.interval = 1;
 	arg.size = 56;
 	arg.count = INFINITY;
@@ -139,15 +146,12 @@ t_info		parser(int ac, char **av)
 		if (arg.idx == -1)
 			return (arg);
 	}
-	printf("%d %d\n", arg.pars_idx, ac);
-	if (arg.pars_idx > ac)
+	if (arg.pars_idx > ac || arg.host == NULL)
 	{
 		usage(av[0]);
 		arg.idx = -2;
 		return (arg);
 	}
 	check_opt(&arg);
-	printf("%s\n", arg.host);
-	//arg.host = av[arg.pars_idx];
 	return (arg);
 }

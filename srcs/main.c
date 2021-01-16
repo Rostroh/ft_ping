@@ -41,7 +41,6 @@ int				main(int argc, char **argv)
 	else
 	{
 		data = parser(argc, argv);
-		printf("Ola\n");
 		if (data.idx < 0)
 			return (0);
 		dst = get_ip_addr(data.host, &err);

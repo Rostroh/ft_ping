@@ -47,6 +47,7 @@ typedef struct 			s_stats
 	int			arg_idx;
 	int			dns;
 	char			*dns_name;
+	char			*cname;
 	int			is_host;
 	struct in_addr		addr;
 	int			nb_sent;
@@ -150,7 +151,9 @@ void			sig_int(int code);
 /*
 **	ft_func.c
 */
+void			*ft_memcpy(void *dst, void *src, size_t n);
 int			ft_strlen(char *s);
 void			*ft_memset(void *s, int c, size_t n);
 int			ft_strcmp(char *s1, char *s2);
+char			*ft_strdup(const char *src);
 #endif
