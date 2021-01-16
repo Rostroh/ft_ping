@@ -67,7 +67,6 @@ int		read_msg(int sock, struct sockaddr_in *addr)
 	struct msghdr	msg;
 	struct iovec	iov[1];
 	ssize_t			n;
-	struct cmgshdr	*cmptr;
 
 	errno = 0;
 	ft_memset(&buf, 0, BUF_SIZE);

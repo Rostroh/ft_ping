@@ -17,7 +17,6 @@
 static int		send_msg(int sock, struct sockaddr_in dst, \
 		t_info data)
 {
-	char			name[255];
 	char			*buffer;
 	struct ip		*ip;
 	struct icmp		*icmp;
@@ -45,22 +44,22 @@ static void		print_info(t_info data)
 	if (ft_strcmp(data.host, "localhost") == 0)
 		printf("PING localhost(localhost(::1) %d data bytes\n", (int)data.size);
 	else if (stat.dns == 1)	
-		printf("PING %s (%s) %d(%d) bytes of data\n", stat.dns_name, \
+		printf("PING %s (%s) %d(%ld) bytes of data\n", stat.dns_name, \
 			inet_ntop(AF_INET, &stat.addr, name, 255), \
 			(int)data.size, (int)(data.size) + sizeof(struct icmp));
 	else
-		printf("PING %s (%s) %d(%d) bytes of data\n", data.host, \
+		printf("PING %s (%s) %d(%ld) bytes of data\n", data.host, \
 			inet_ntop(AF_INET, &stat.addr, name, 255), \
 			(int)data.size, (int)(data.size) + sizeof(struct icmp));
 }
 
-static void		print_comm(struct sockaddr_in dst, t_info data)
+static void		print_comm(t_info data)
 {
 	char		name[255];
 
 	if (data.d == 1)
 		printf("[%ld-%ld] ", stat.tv1.tv_sec, stat.tv1.tv_usec);
-	printf("%d bytes from ", (int)(data.size) + sizeof(struct icmp) - sizeof(struct ip));
+	printf("%ld bytes from ", (int)(data.size) + sizeof(struct icmp) - sizeof(struct ip));
 	if (ft_strcmp(data.host, "localhost") == 0)
 		printf("localhost (::1)");
 	else if (stat.dns == 1)
@@ -83,7 +82,6 @@ static float		conv_float(float val)
 void			ft_ping(struct sockaddr_in dst, t_info data)
 {
 	int			sock;
-	char			name[255];
 	struct sockaddr_in	tmp;
 
 	if ((sock = creat_socket()) < 0)
@@ -91,14 +89,14 @@ void			ft_ping(struct sockaddr_in dst, t_info data)
 	print_info(data);
 	gettimeofday(&stat.init, NULL);
 	ft_memcpy(&tmp, &dst, sizeof(struct sockaddr_in));
-	while (conv_float(stat.nb_sent) < data.count)
+	while (stat.nb_sent < conv_float(data.count))
 	{
 		dst = tmp;
 		send_msg(sock, dst, data);
 		if (read_msg(sock, &dst) > 0)
 		{
 			gettimeofday(&stat.tv2, NULL);
-			print_comm(dst, data);
+			print_comm(data);
 			time_passed(stat.tv1, stat.tv2);
 			stat.nb_rec++;
 		}

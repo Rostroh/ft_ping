@@ -19,7 +19,6 @@ void			print_stat(void)
 	int			sec;
 	int			usec;
 	int			mdev;
-	char		name[SIZE_IP4 + 1];
 
 	gettimeofday(&stat.end, NULL);
 	printf("\n--- %s ping statistics ---\n", stat.dns_name);

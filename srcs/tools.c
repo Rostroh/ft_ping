@@ -8,6 +8,8 @@ void		usage(char *name)
 
 void		sig_int(int code)
 {
-	print_stat();
+	code = 0;
+	if (code == 0)
+		print_stat();
 	exit(-1);
 }

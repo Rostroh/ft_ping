@@ -20,7 +20,6 @@ t_info		bad_value(int idx, t_info arg)
 {
 	static char	*err_msg[3] = {"bad number of packet to transmit.", "ttl out of range", "bad timing interval"};
 
-	printf("idx = %d\n", idx);
 	printf("ft_ping: %s\n", err_msg[idx]);
 	arg.idx = -1;
 	return (arg);

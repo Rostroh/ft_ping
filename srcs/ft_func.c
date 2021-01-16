@@ -1,6 +1,6 @@
 #include "ft_ping.h"
 
-int		ft_strlen(char *str)
+int		ft_strlen(const char *str)
 {
 	int		i;
 
@@ -12,7 +12,7 @@ int		ft_strlen(char *str)
 
 void		*ft_memset(void *s, int c, size_t n)
 {
-	int		i;
+	size_t		i;
 	unsigned char	*ptr;
 
 	i = 0;
@@ -27,7 +27,7 @@ void		*ft_memset(void *s, int c, size_t n)
 
 void		*ft_memcpy(void *dst, void *src, size_t n)
 {
-	int		i;
+	size_t		i;
 	unsigned char	*s1;
 	unsigned char	*s2;
 

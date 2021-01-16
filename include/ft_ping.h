@@ -140,7 +140,7 @@ void			print_stat(void);
 /*
 **	time.c
 */
-float			time_passed(struct timeval t1, struct timeval t2);
+void			time_passed(struct timeval t1, struct timeval t2);
 
 /*
 **	tools.c
@@ -152,7 +152,7 @@ void			sig_int(int code);
 **	ft_func.c
 */
 void			*ft_memcpy(void *dst, void *src, size_t n);
-int			ft_strlen(char *s);
+int			ft_strlen(const char *s);
 void			*ft_memset(void *s, int c, size_t n);
 int			ft_strcmp(char *s1, char *s2);
 char			*ft_strdup(const char *src);

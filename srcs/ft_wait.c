@@ -12,7 +12,7 @@
 
 #include "ft_ping.h"
 
-static int	get_micro(float delay, int unit)
+static int	get_micro(float delay)
 {
 	int	i;
 	int	res;
@@ -33,7 +33,7 @@ static int	diff(int micro, int *secs)
 {
 	if (micro > 999999)
 	{
-		*secs++;
+		(*secs)++;
 		return (micro - 999999);
 	}
 	return (micro);
@@ -51,7 +51,7 @@ void		ft_wait(float delay)
 	gettimeofday(&tv, NULL);
 	gettimeofday(&tv2, NULL);
 	sec = (int)(delay);
-	usec = diff(tv.tv_usec + get_micro(delay, sec), &sec);
+	usec = diff(tv.tv_usec + get_micro(delay), &sec);
 	while (tv2.tv_sec < tv.tv_sec + sec)
 		gettimeofday(&tv2, NULL);
 	while (tv2.tv_usec < usec)

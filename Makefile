@@ -29,7 +29,7 @@ WFLG = -Wall -Werror -Wextra
 INC_FLG = -I $(INC_DIR)
 
 FLGS = $(INC_FLG) \
-	#$(WFLG) \
+	$(WFLG)
 
 
 #------------------------------------------------------------#
@@ -39,14 +39,12 @@ all:
 
 
 $(NAME): $(OBJS)
-	echo "ICI ?"
 	$(CC) $(FLGS) $^ -o $@ -lm
 
 $(OBJS): $(INCS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	echo "MDR\n"
+	@mkdir -p $(OBJ_DIR)
 	$(CC) $(FLGS) -o $@ -lm -c -fPIC $<
 
 clean:

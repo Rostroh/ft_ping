@@ -14,7 +14,7 @@ static void	new_member(int diff)
 	tmp->next = new;
 }
 
-float		time_passed(struct timeval t1, struct timeval t2)
+void		time_passed(struct timeval t1, struct timeval t2)
 {
 	int		diff;
 

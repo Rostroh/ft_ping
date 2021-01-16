@@ -12,22 +12,6 @@
 
 #include "ft_ping.h"
 
-static int					get_idx_char(char *str, char c)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (i);
-		i++;
-	}
-	if (str[i] == '\0')
-		return (1);
-	return (-1);
-}
-
 static struct sockaddr_in	lookup_host(char *host, int *error)
 {
 	char			name[255];
