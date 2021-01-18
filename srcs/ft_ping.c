@@ -21,7 +21,9 @@ static int		send_msg(int sock, struct sockaddr_in dst, \
 	struct ip		*ip;
 	struct icmp		*icmp;
 
+	printf("before payload\n");
 	buffer = creat_payload(dst, data);
+	printf("after payload\n");
 	ip = (struct ip *)buffer;
 	icmp = (struct icmp *)(ip + 1);
 	icmp->icmp_cksum = 0;
@@ -30,9 +32,11 @@ static int		send_msg(int sock, struct sockaddr_in dst, \
 	icmp->icmp_cksum = cksum((unsigned short *)icmp, \
 			data.size);
 	gettimeofday(&stat.tv1, NULL);
+	printf("debug\n");
 	if (sendto(sock, buffer, data.size + sizeof(struct icmp), 0, \
 			(struct sockaddr *)&dst, data.size + sizeof(struct icmp)) < 0)
 		printf("Send error\n");
+	printf("debug&\n");
 	stat.nb_sent++;
 	return (data.size + sizeof(struct icmp));
 }
@@ -92,7 +96,9 @@ void			ft_ping(struct sockaddr_in dst, t_info data)
 	while (stat.nb_sent < conv_float(data.count))
 	{
 		dst = tmp;
+		printf("debug before send\n");
 		send_msg(sock, dst, data);
+		printf("debug after send\n");
 		if (read_msg(sock, &dst) > 0)
 		{
 			gettimeofday(&stat.tv2, NULL);

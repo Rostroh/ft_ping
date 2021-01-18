@@ -34,9 +34,14 @@ void		*ft_memcpy(void *dst, void *src, size_t n)
 	i = 0;
 	s1 = dst;
 	s2 = src;
+	if (!s1)
+		printf("lol\n");
+	printf("begin memcpy\n");
 	while (i < n)
 	{
+		printf("before cpy\n");
 		s1[i] = s2[i];
+		printf("i = %ld\n", i);
 		i++;
 	}
 	return (dst);
