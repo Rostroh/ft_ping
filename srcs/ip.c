@@ -23,15 +23,13 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	ft_memset(&dst, sizeof(struct sockaddr_in), 0);
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_RAW;
-	hints.ai_flags = 0;//AI_CANONNAME;
-	printf("host = %s %d\n", host, EAI_NONAME);
+	hints.ai_flags = AI_CANONNAME;
 	if ((err = getaddrinfo(host, NULL, &hints, &res)) != 0)
 	{
 		printf("./ft_ping: %s: No address associated with hostname (error code = %d)\n", host, err);
 		*error = -1;
 		return (dst);
 	}
-	printf("host trouve\n");
 	dst = (*(struct sockaddr_in *)res->ai_addr);
 	stat.is_host = 1;
 	stat.dns = 1;
@@ -40,7 +38,6 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	{
 		getnameinfo((struct sockaddr *)&dst, sizeof(struct sockaddr), name, 255, NULL, 0, NI_NUMERICSERV);
 		stat.cname = ft_strdup(name);
-		printf("cname = %s\n", stat.cname);
 		res = res->ai_next;
 	}
 	return (dst);
