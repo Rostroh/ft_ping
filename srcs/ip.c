@@ -14,7 +14,6 @@
 
 static struct sockaddr_in	lookup_host(char *host, int *error)
 {
-	int			err = 0;
 	char			name[255];
 	struct addrinfo		*res;
 	struct addrinfo		hints;
@@ -24,9 +23,9 @@ static struct sockaddr_in	lookup_host(char *host, int *error)
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_RAW;
 	hints.ai_flags = AI_CANONNAME;
-	if ((err = getaddrinfo(host, NULL, &hints, &res)) != 0)
+	if (getaddrinfo(host, NULL, &hints, &res) != 0)
 	{
-		printf("./ft_ping: %s: No address associated with hostname (error code = %d)\n", host, err);
+		printf("./ft_ping: %s: No address associated with hostname\n", host);
 		*error = -1;
 		return (dst);
 	}
