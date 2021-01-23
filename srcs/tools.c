@@ -13,3 +13,15 @@ void		sig_int(int code)
 		print_stat();
 	exit(-1);
 }
+
+void		free_list(void)
+{
+	t_time_list	*to_free;
+
+	while (stat.lst)
+	{
+		to_free = stat.lst;
+		stat.lst = stat.lst->next;
+		free(to_free);
+	}
+}

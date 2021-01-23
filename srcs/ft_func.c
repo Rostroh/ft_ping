@@ -57,15 +57,18 @@ int		ft_strcmp(char *s1, char *s2)
 char		*ft_strdup(const char *src)
 {
 	int	i;
+	int	len;
 	char	*dst;
 
 	i = 0;
-	if (!(dst = (char *)malloc(sizeof(char) * ft_strlen(src))))
+	len = ft_strlen(src);
+	if (!(dst = (char *)malloc(sizeof(char) * len + 1)))
 		return (NULL);
-	while (src[i])
+	while (i < len)
 	{
 		dst[i] = src[i];
 		i++;
 	}
+	dst[i] = '\0';
 	return (dst);
 }

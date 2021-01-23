@@ -31,7 +31,12 @@ void			print_stat(void)
 		sec--;
 		usec = -usec;
 	}
-	printf("%ds %d.%dms\n", sec, usec / 1000, usec % 1000);
+	printf("%d%d.%dms\n", sec, usec / 1000, usec % 1000);
 	mdev = standart_div();
 	print_rtt(mdev);
+	free_list();
+	if (stat.dns_name)
+		free(stat.dns_name);
+	if (stat.cname)
+		free(stat.cname);
 }

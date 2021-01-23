@@ -22,7 +22,7 @@ int		standart_div(void)
 	tmp = stat.lst;
 	while (tmp != NULL)
 	{
-		div = tmp->val - stat.time.ave / stat.nb_sent;
+		div = tmp->val - (stat.time.ave / stat.nb_sent);
 		div *= div;
 		sum += div;
 		tmp = tmp->next;

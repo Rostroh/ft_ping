@@ -147,7 +147,7 @@ void			time_passed(struct timeval t1, struct timeval t2);
 */
 void			usage(char *name);
 void			sig_int(int code);
-
+void			free_list(void);
 /*
 **	ft_func.c
 */

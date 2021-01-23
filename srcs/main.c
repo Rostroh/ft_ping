@@ -3,6 +3,8 @@
 static void		init(void)
 {
 	stat.dns = 0;
+	stat.dns_name = NULL;
+	stat.cname = NULL;
 	stat.is_host = 0;
 	stat.nb_sent = 0;
 	stat.nb_rec = 0;

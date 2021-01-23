@@ -34,6 +34,7 @@ static int		send_msg(int sock, struct sockaddr_in dst, \
 			(struct sockaddr *)&dst, data.size + sizeof(struct icmp)) < 0)
 		printf("Send error\n");
 	stat.nb_sent++;
+	free(buffer);
 	return (data.size + sizeof(struct icmp));
 }
 
@@ -102,6 +103,8 @@ void			ft_ping(struct sockaddr_in dst, t_info data)
 		}
 		ft_wait(data.interval);
 	}
+	if (stat.cname)
+		printf("lol\n");
 	gettimeofday(&stat.end, NULL);
 	print_stat();
 	close(sock);
